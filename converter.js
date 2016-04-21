@@ -1,7 +1,6 @@
 'use strict';
 
 var util = require('./util')
-  , safejson = require('safejson')
   , inherits = require('util').inherits
   , Transform = require('stream').Transform;
 
@@ -12,6 +11,11 @@ var util = require('./util')
  */
 function JsonInfluxLineStream (opts) {
   Transform.call(this, opts);
+
+  // The stream expects input to be an object, and will also output objects
+  this._writableState.objectMode = true;
+  this._readableState.objectMode = true;
+
   this.opts = opts;
 }
 inherits(JsonInfluxLineStream, Transform);
@@ -25,16 +29,10 @@ module.exports = JsonInfluxLineStream;
  * @param  {Function} done
  */
 JsonInfluxLineStream.prototype._transform = function (data, encoding, done) {
-  safejson.parse(data, function onJsonParse (err, data) {
-    if (err) {
-      done(err);
-    } else {
-      done(null, util.generateLineProtocolString({
-        measurement: data.measurement,
-        tags: util.generateTagString(data.tags),
-        fields: util.generateFieldString(data.fields),
-        ts: data.ts
-      }));
-    }
-  });
+  done(null, util.generateLineProtocolString({
+    measurement: data.measurement,
+    tags: util.generateTagString(data.tags),
+    fields: util.generateFieldString(data.fields),
+    ts: data.ts
+  }));
 };
