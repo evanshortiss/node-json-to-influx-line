@@ -9,8 +9,12 @@ describe('converter', function () {
 
   var testData = {
     measurement: 'test',
-    tags: 'tag=tagvalue',
-    fields: 'field=fieldvalue'
+    tags: {
+      tag: 'tagvalue'
+    },
+    fields: {
+      field: 'fieldvalue'
+    }
   };
 
   beforeEach(function () {

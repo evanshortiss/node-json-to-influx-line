@@ -29,7 +29,12 @@ JsonInfluxLineStream.prototype._transform = function (data, encoding, done) {
     if (err) {
       done(err);
     } else {
-      done(null, util.generateLineProtocolString(data));
+      done(null, util.generateLineProtocolString({
+        measurement: data.measurement,
+        tags: util.generateTagString(data.tags),
+        fields: util.generateFieldString(data.fields),
+        ts: data.ts
+      }));
     }
   });
 };

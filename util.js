@@ -21,9 +21,9 @@ var MEASURE_REPLACERS = [
  * Certain chars need to be escaped for certain string portions.
  * This function will escape the required items for a given input string
  *
- * @param  {[type]} replacers [description]
- * @param  {[type]} input     [description]
- * @return {[type]}           [description]
+ * @param  {Array}  replacers
+ * @param  {String} input
+ * @return {String}
  */
 function escapeChars (replacers, input) {
   for (var r in replacers) {
@@ -33,9 +33,6 @@ function escapeChars (replacers, input) {
   return input;
 }
 
-
-// If a tag key, tag value, or field key contains a space, comma, or an equals
-// sign, it must be escaped using the backslash character \.
 
 /**
  * Creates a tag or value string that can be incldued in a complete InfluxDB
@@ -64,6 +61,7 @@ exports.generateTagString = function (data, keys) {
 
   return ret;
 };
+
 
 /**
  * Creates a string of field values

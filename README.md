@@ -15,6 +15,26 @@ npm i json-influxdb-line
 
 # Usage
 
+Any Object you want to convert to a line must be of the format:
+
+```js
+{
+  measurement: 'name-of-measure',
+  // Fields cannot contain sub-objects unless they are stringified
+  fields: {
+    c: '2',
+    d: 3
+  },
+  // Options. Tags cannot contain sub-objects unless they are stringified
+  tags: {
+    a: '1',
+    b: 2
+  },
+  // Optional. Any precision can be used (see InfluxDB API)
+  ts: Date.now()
+}
+```
+
 ## Streaming
 ```js
 var JsonInfluxDbStream = require('json-influxdb-line').JsonInfluxDbStream;
