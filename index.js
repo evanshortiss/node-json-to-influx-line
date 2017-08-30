@@ -11,7 +11,7 @@ exports.JsonInfluxDbStream = require('./converter');
  */
 exports.convert = function convert (opts) {
   return util.generateLineProtocolString({
-    measurement: util.escapeMeasureName(opts.measurement),
+    measurement: opts.measurement,
     tags: util.generateTagString(opts.tags),
     fields: util.generateFieldString(opts.fields),
     ts: opts.ts

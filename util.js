@@ -52,7 +52,7 @@ exports.generateTagString = function (data, keys) {
       ret +=
         escapeChars(FIELD_TAG_REPLACERS, keys[i]) +
         '=' +
-        escapeChars(FIELD_TAG_REPLACERS, data[keys[i]]) +
+        escapeChars(FIELD_TAG_REPLACERS, data[keys[i]].toString()) +
         ',';
     }
 
